@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-store, no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <title>Welcome</title>
+    <link href="Styles/site.css" rel="stylesheet" type="text/css" />
+    
+    <!-- mike's version...  -->
+    <!-- <script src="Scripts/jquery.min.js"></script> -->
+    <!--<script src="Scripts/common.js"></script>--> <!-- commented out on demo version -->
+    <!-- <script src="Scripts/kendo.all.min.js"></script> -->
+    <!-- <link href="styles/kendo.common.min.css" rel="stylesheet" /> -->
+    <!-- <link href="styles/kendo.common-bootstrap.min.css" rel="stylesheet" />
+    <link href="styles/kendo.bootstrap.min.css" rel="stylesheet" /> -->
+    
+    
+    <!-- my version -- according to documentation -->
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+    <script src="Scripts/XLate.js"></script> <!-- originally above on line 13 -->
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.default.min.css" rel="stylesheet" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/VERSION/styles/kendo.common-bootstrap.min.css">
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/VERSION/styles/kendo.bootstrap.min.css">
+
+
+
+
+
+    <script>
+        var msg_AjaxErr = "An error occurred while trying to get information from the server";
+        //setCookie("VB3userID", "", 180);
+        var Provider = "";
+        var ModalWin
+        var AutoUser = "";
+        var colDia = [];
+        var colParts = [];
+        var colEnds = ["FL-Glv", "FL-CS", "FL-S", "RL", "Hose"];
+
+        $(document).ready(function () {
+            
+            for (var i = 3; i < 73; i++) {
+                colDia.push(i);
+            }
+            
+            $("#panConfigurator").kendoPanelBar({
+
+            });
+
+            $("#cmbMatType").kendoDropDownList({
+                dataSource: ["Galvanized", "Stainless Steel 304", "Carbon Steel"],
+                change: function () {
+                    
+                }
+            });
+
+            $("#cmbRLGasketType").kendoDropDownList({
+                dataSource: ["Buna-N", "HT/FDA", "GoreTex","Viton"],
+                change: function () {
+
+                }
+            });
+
+            $("#cmbFLGasketType").kendoDropDownList({
+                dataSource: ["None", "Neoprene"],
+                change: function () {
+
+                }
+            });
+
+            $("#cmbBraType").kendoDropDownList({
+                dataSource: ["Single Branch", "Double Branch", "Y-Branch", "T-Branch", "In-Cut"],
+                change: function () {
+                    if (this.value() === "Double Branch") {
+                        $("#divBraDiaD").show();
+                        $("#divBraEndD").show();
+                        $("#divBraEndA").show();
+                    } else if (this.value() === "In-Cut") {
+                        $("#divBraDiaD").hide();
+                        $("#divBraEndD").hide();
+                        $("#divBraDiaC").hide();
+                        $("#divBraEndC").hide();
+                        $("#divBraEndA").hide();
+                    } else {
+                        $("#divBraDiaD").hide();
+                        $("#divBraEndD").hide();
+                        $("#divBraDiaC").show();
+                        $("#divBraEndC").show();
+                        $("#divBraEndA").show();
+                    }
+                }
+            });
+
+            $("#cmbDiaA").kendoDropDownList({
+                dataSource: colDia
+            });
+
+            $("#cmbEndA").kendoDropDownList({
+                dataSource: colEnds
+            });
+
+            $("#cmbDiaB").kendoDropDownList({
+                dataSource: colDia
+            });
+
+            $("#cmbEndB").kendoDropDownList({
+                dataSource: colEnds
+            });
+
+            $("#cmbDiaC").kendoDropDownList({
+                dataSource: colDia
+            });
+
+            $("#cmbEndC").kendoDropDownList({
+                dataSource: colEnds
+            });
+            $("#cmbDiaD").kendoDropDownList({
+                dataSource: colDia
+            });
+
+            $("#cmbEndD").kendoDropDownList({
+                dataSource: colEnds
+            });
+
+            $("#cmbElbEndA").kendoDropDownList({
+                dataSource: colEnds,
+                change: function () {
+                    $("#cmbElbEndB").data("kendoDropDownList").value(this.value());                    
+                }
+            });
+
+            $("#cmbElbEndB").kendoDropDownList({
+                dataSource: colEnds
+            });
+
+            $("#cmbAngle").kendoDropDownList({
+                dataSource: ["45","30"]
+            });
+
+            $("#cmbElbAngle").kendoDropDownList({
+                dataSource: ["90", "60","45","30"]
+            });
+
+            $("#cmbElbType").kendoDropDownList({
+                dataSource: ["Stitch Welded", "Tubed", "Gored/Segmented"],
+                change: function () {
+                    
+                }
+            });
+
+            $("#cmbElbRadius").kendoDropDownList({
+                dataSource: ["1xD", "1.5xD", "2.5xD"],
+                change: function () {
+
+                }
+            });
+
+            $("#cmbElbRadius").data("kendoDropDownList").value("1.5xD")
+
+            $("#cmbElbDia").kendoDropDownList({
+                dataSource: colDia
+            });
+
+            $("#cmbDucDia").kendoDropDownList({
+                dataSource: colDia,
+                change: function () {
+                    $("#cmbElbDia").data("kendoDropDownList").value(this.value());
+                    $("#cmbDiaA").data("kendoDropDownList").value(this.value());
+                    $("#cmbDiaB").data("kendoDropDownList").value(this.value());
+                    $("#cmbDiaC").data("kendoDropDownList").value(this.value());
+                    $("#cmbDiaD").data("kendoDropDownList").value(this.value());
+                }
+            });
+
+            $("#cmbSetEnd").kendoDropDownList({
+                dataSource: colEnds,
+                change: function () {
+                    $("#cmbDucEndA").data("kendoDropDownList").value(this.value());
+                    $("#cmbElbEndA").data("kendoDropDownList").value(this.value());
+                    $("#cmbDucEndB").data("kendoDropDownList").value(this.value());
+                    $("#cmbElbEndB").data("kendoDropDownList").value(this.value());
+                    $("#cmbEndA").data("kendoDropDownList").value(this.value());
+                    $("#cmbEndB").data("kendoDropDownList").value(this.value());
+                    $("#cmbEndC").data("kendoDropDownList").value(this.value());
+                    $("#cmbEndD").data("kendoDropDownList").value(this.value());
+                }
+            });
+
+            $("#cmbDucEndA").kendoDropDownList({
+                dataSource: colEnds,
+                change: function () {
+                    $("#cmbDucEndB").data("kendoDropDownList").value(this.value());
+                }
+            });
+
+            $("#cmbDucEndB").kendoDropDownList({
+                dataSource: colEnds
+            });
+
+            $("#grdBOM").kendoGrid({
+                scrollable: true,                
+                columns: [
+                    {
+                        field: "Quantity",
+                        title: "Qty",
+                        
+                        attributes: { style: "text-align: right" },
+                        footerTemplate: "<div style='text-align:right;'>#=parseFloat(sum).toFixed(0)#</div>"
+                    },
+                    {
+                        field: "ItemNo",
+                        title: "Item No"
+                    },
+                    
+                    {
+                        field: "Description",
+                        title: "Description"
+                    },
+
+                    {
+
+                        field: "ShowRate",
+                        title: "Price",
+                        
+                        template: "<div style='text-align:right;'>#= ShowRate.toFixed(2) #</div>"
+
+                    },
+                    {
+
+                        field: "ShowAmount",
+                        title: "Ext. Price",
+                        
+                        template: "<div style='text-align:right;'>#= ShowAmount.toFixed(2) #</div>",
+                        footerTemplate: "<div style='text-align:right;'>#= parseFloat(sum).toFixed(2) #</div>"
+
+                    }
+
+                ],
+                dataSource: {
+
+                    aggregate: [{ field: "Quantity", aggregate: "sum" },
+                    { field: "Weight", aggregate: "sum" },
+                    { field: "ShowAmount", aggregate: "sum" }],
+                    model: {
+                        fields: {
+                            
+                            Quantity: { type: "number" },
+                            ItemNo: { type: "string" },                            
+                            Description: { type: "string" },
+                            Weight: { type: "number" },
+                            ShowRate: { type: "number" },
+                            ShowAmount: { type: "number" }
+                        }
+                    }
+                }
+            });
+        });
+                
+        $(window).resize(function () {
+            $("#grdBOM").data("kendoGrid").resize();
+        });
+
+        function addDuct() {
+            var Qty = parseFloat($("#numDucQty").val());
+            var p = { Quantity: Qty, ItemNo: "D" + $("#cmbDucDia").data("kendoDropDownList").value(), Description: "Duct " + $("#cmbDucDia").data("kendoDropDownList").value() , Weigth: 0 , ShowRate: 5, ShowAmount: 5*Qty  }
+            colParts.push(p);
+            setData();
+        }
+
+        function addElbow() {
+            var Qty = parseFloat($("#numElbQty").val());
+            var p = { Quantity: Qty, ItemNo: "E" + $("#cmbElbDia").data("kendoDropDownList").value(), Description: "Elbow " + $("#cmbElbDia").data("kendoDropDownList").value(), Weigth: 0, ShowRate: 50, ShowAmount: 50 * Qty }
+            colParts.push(p);
+            setData();
+        }
+
+        function addBranch() {
+            var Qty = parseFloat($("#numBraQty").val());
+            var p = { Quantity: Qty, ItemNo: "B" + $("#cmbDiaA").data("kendoDropDownList").value(), Description: "Branch " + $("#cmbDucDia").data("kendoDropDownList").value(), Weigth: 0, ShowRate: 100, ShowAmount: 100 * Qty }
+            colParts.push(p);
+            setData();
+        }
+
+        function setData() {
+            var dsC = new kendo.data.DataSource({
+                aggregate: [{ field: "Quantity", aggregate: "sum" },
+                { field: "Weight", aggregate: "sum" },
+                { field: "ShowAmount", aggregate: "sum" }],
+                data: colParts
+            })
+            $("#grdBOM").data("kendoGrid").setDataSource(dsC);
+        }
+    </script>
+    <style>
+        body{
+            font-size:10pt;
+        }
+        #divConf {
+            width:100%;
+            height:calc(100vh - 100px);            
+        }
+        #panConfigurator {
+            width: 100%;
+            height: calc(100% - 60px);
+            
+        }
+        .confPanel {
+            width: 100%; 
+            margin:5px;
+        }
+        .divCell {
+            display: inline-table;
+        }
+        #grdBOM {
+            height: calc(100% - 30px);
+        }
+        @media (min-width: 1000px) {
+            .confPanel {
+                width:49%;
+                display:inline-table;
+                height:100%;
+                overflow:hidden;
+            }
+        }
+    </style>
+</head>
+<body class="k-content">
+    <img id="imgLogo" src="images/Logo.png" style="position:absolute;top:4px;right:2px;" />
+    <table id="TopMenu" class="content">
+        <tr>
+            <td style="width:350px;">
+                <h1>Configurator</h1><small>Non-functioning demo version</small>
+            </td>
+
+            <td style="vertical-align:middle;">
+                <button Class="k-button" onclick="window.location.href = 'mainmenu.html';">Main Menu</button>
+            </td>
+        </tr>
+    </table>
+    <div id="divConf"> 
+        <div class="confPanel">
+            <ul id="panConfigurator" style="width:99%;">
+                <li id="panGeneral" class="k-state-active">
+                    <span>Settings</span>
+                    <div style="margin:5px;display:inline-table">
+                        <div class="divCell">
+                            <label>Material</label><br />
+                            <input id="cmbMatType" style="width:175px;" />
+                        </div>
+                        <div class="divCell">
+                            <label>End</label><br />
+                            <input id="cmbSetEnd" style="width:80px;" />
+                        </div>
+                        <div class="divCell">
+                            <label>Rolled Lip Gasket Type</label><br />
+                            <input id="cmbRLGasketType" style="width:175px;" />
+                        </div>
+                        <div class="divCell">
+                            <label>Flange Gasket Type</label><br />
+                            <input id="cmbFLGasketType" style="width:175px;" />
+                        </div>
+                    </div>
+                </li>
+                <li id="panPipe" class="k-state-active">
+                    <span>Duct</span>
+                    <div style="margin:5px;display:inline-table">
+                        <div class="divCell">
+                            <label>Diameter</label><br />
+                            <input id="cmbDucDia" style="width:60px;" />
+                        </div>
+                        <div class="divCell">
+                            <label>End A</label><br />
+                            <input id="cmbDucEndA" style="width:80px;" />
+                        </div>
+                        <div class="divCell">
+                            <label>End B</label><br />
+                            <input id="cmbDucEndB" style="width:80px;" />
+                        </div>
+                        <div class="divCell">
+                            <label>Qty</label><br />
+                            <input id="numDucQty" class="k-textbox" type="number" onfocus="this.select()" style="width:50px;" value="1" />
+                        </div>
+                        <div class="divCell">
+                            <label>&nbsp;</label><br />
+                            <button id="butDucAdd" class="k-button k-primary" style="width:35px;height:30px;" onclick="addDuct();">Add</button>
+                        </div>
+                    </div>
+                </li>
+                <li id="panElbow" class="k-state-active">
+                    <span>Elbows</span>
+                    <div style="margin:5px;display:inline-table">
+                        <div class="divCell">
+                            <label>Diameter</label><br />
+                            <input id="cmbElbDia" style="width:60px;" />
+                        </div>
+                        <div class="divCell">
+                            <label>Type</label><br />
+                            <input id="cmbElbType" style="width:160px;" />
+                        </div>
+                        <div class="divCell">
+                            <label>End A</label><br />
+                            <input id="cmbElbEndA" style="width:80px;" />
+                        </div>
+                        <div class="divCell">
+                            <label>End B</label><br />
+                            <input id="cmbElbEndB" style="width:80px;" />
+                        </div>
+                        <div class="divCell">
+                            <label>Angle</label><br />
+                            <input id="cmbElbAngle" style="width:60px;" />
+                        </div>
+                        <div class="divCell">
+                            <label>Radius</label><br />
+                            <input id="cmbElbRadius" style="width:80px;" />
+                        </div>
+                        <div class="divCell">
+                            <label>Qty</label><br />
+                            <input id="numElbQty" class="k-textbox" type="number" onfocus="this.select()" style="width:50px;" value="1" />
+                        </div>
+                        <div class="divCell">
+                            <label>&nbsp;</label><br />
+                            <button id="butElbAdd" class="k-button k-primary" style="width:35px;height:30px;" onclick="addElbow();">Add</button>
+                        </div>
+                    </div>
+                </li>
+                <li id="panBranch" class="k-state-active">
+                    <span>Branches</span>
+                    <div style="margin:5px;display:inline-table">
+                        <div class="divCell">
+                            <label>Type</label><br />
+                            <input id="cmbBraType" style="width:130px;" />
+                        </div>
+                        <div class="divCell">
+                            <label>Dia A</label><br />
+                            <input id="cmbDiaA" style="width:60px;" />
+                        </div>
+                        <div id="divBraEndA" class="divCell">
+                            <label>End A</label><br />
+                            <input id="cmbEndA" style="width:80px;" />
+                        </div>
+                        <div class="divCell">
+                            <label>Dia B</label><br />
+                            <input id="cmbDiaB" style="width:60px;" />
+                        </div>
+                        <div class="divCell">
+                            <label>End B</label><br />
+                            <input id="cmbEndB" style="width:80px;" />
+                        </div>
+                        <div id="divBraDiaC" class="divCell">
+                            <label>Dia C</label><br />
+                            <input id="cmbDiaC" style="width:60px;" />
+                        </div>
+                        <div id="divBraEndC" class="divCell">
+                            <label>End C</label><br />
+                            <input id="cmbEndC" style="width:80px;" />
+                        </div>
+                        <div id="divBraDiaD" style="display:none;" class="divCell">
+                            <label>Dia D</label><br />
+                            <input id="cmbDiaD" style="width:60px;" />
+                        </div>
+                        <div id="divBraEndD" style="display:none;" class="divCell">
+                            <label>End D</label><br />
+                            <input id="cmbEndD" style="width:80px;" />
+                        </div>
+                        <div class="divCell">
+                            <label>Angle</label><br />
+                            <input id="cmbAngle" style="width:60px;" />
+                        </div>
+                        <div class="divCell">
+                            <label>Qty</label><br />
+                            <input id="numBraQty" class="k-textbox" type="number" onfocus="this.select()" style="width:50px;" value="1" />
+                        </div>
+                        <div class="divCell">
+                            <label>&nbsp;</label><br />
+                            <button id="butBraAdd" class="k-button k-primary" style="width:35px;height:30px;" onclick="addBranch();">Add</button>
+                        </div>
+                    </div>
+                </li>
+                <li id="panFlex">
+                    <span>Flex Hose</span>
+                    <div style="margin:5px">
+                        Flex Hose here...
+                    </div>
+                </li>
+                <li id="panGates">
+                    <span>Gates</span>
+                    <div style="margin:5px">
+                        Gates here...
+                    </div>
+                </li>
+                <li id="panCyclones">
+                    <span>Cyclones</span>
+                    <div style="margin:5px">
+                        Cyclones here...
+                    </div>
+                </li>
+                <li id="panSpecials">
+                    <span>Specials</span>
+                    <div style="margin:5px">
+                        Specials here...
+                    </div>
+                </li>
+                <li id="panCustomFab">
+                    <span>Custom Fabrication</span>
+                    <div style="margin:5px">
+                        Custom Fabrication here...
+                    </div>
+                </li>
+                <li id="panFinish">
+                    <span>Finish</span>
+                    <div style="margin:5px">
+                        <input id="chkTagFree" type="checkbox" /><label for="chkTagFree">Tag Free</label><br />
+                        <input id="chkPainted" type="checkbox" /><label for="chkPainted">Painted</label>
+                    </div>
+                </li>
+            </ul>
+            <button class="k-button k-primary" style="width:99%">Complete Quote</button>
+        </div>
+        <div class="confPanel">
+            <div id="grdBOM" style="width:99%;"></div>
+        </div>
+    </div>
+    
+</body>
+</html>
