@@ -7,7 +7,6 @@
     <meta http-equiv="Expires" content="0" />
 
     <title>Welcome</title>
-    <link href="Styles/site.css" rel="stylesheet" type="text/css" />
     
     <!-- mike's version...  -->
     <!-- <script src="Scripts/jquery.min.js"></script> -->
@@ -15,9 +14,9 @@
     <!-- <script src="Scripts/kendo.all.min.js"></script> -->
     <!-- <link href="styles/kendo.common.min.css" rel="stylesheet" /> -->
     <!-- <link href="styles/kendo.common-bootstrap.min.css" rel="stylesheet" />
-    <link href="styles/kendo.bootstrap.min.css" rel="stylesheet" /> -->
-    
-    
+        <link href="styles/kendo.bootstrap.min.css" rel="stylesheet" /> -->
+        
+        
     <!-- my version -- according to documentation -->
     <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
     <script src="Scripts/XLate.js"></script> <!-- originally above on line 13 -->
@@ -26,8 +25,9 @@
     <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/VERSION/styles/kendo.common-bootstrap.min.css">
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/VERSION/styles/kendo.bootstrap.min.css">
-
-
+    
+    
+    <link href="Styles/site.css" rel="stylesheet" type="text/css" />
 
 
 
@@ -305,12 +305,13 @@
         }
         #panConfigurator {
             width: 100%;
-            height: calc(100% - 60px);
+            min-height: calc(100% - 60px);
+            height: auto;
             
         }
         .confPanel {
             width: 100%; 
-            margin:5px;
+            margin:10px 5px;
         }
         .divCell {
             display: inline-table;
@@ -318,26 +319,75 @@
         #grdBOM {
             height: calc(100% - 30px);
         }
-        @media (min-width: 1000px) {
+
+        #config{
+        /* width: 350px; */
+        width: 42vw;
+        /* background-color: blue; */
+    }
+
+        @media (min-width: 1204px) {
             .confPanel {
                 width:49%;
                 display:inline-table;
                 height:100%;
                 overflow:hidden;
             }
+
+        }
+
+        @media (max-width: 1204px) {
+            #grdBOM {
+            height: calc(auto - 20px);
+            margin-bottom: 80px;
+            }
+            #config{
+            width: 38vw;
+            /* background-color: red; */
+            }
+
+            #config h1{
+            font-size: 18px;
+            }
+        
+        }
+
+
+        @media (max-width: 420px) {
+            #config{
+            width: auto;
+            /* background-color: yellowgreen; */
+            }
+            
+            #config h1{
+            font-size: 5vw;
+            padding: 0px;
+            margin-right: 10px;
+            }
+            #config small{
+            font-size: 3vw;
+            }
+            #imgLogo {
+            width: 30vw;
+            padding: 0px;
+            margin: 0px;
+            }
+            .mainmenubutton {
+            font-size: 3.5vw;
+            }
         }
     </style>
 </head>
 <body class="k-content">
-    <img id="imgLogo" src="images/Logo.png" style="position:absolute;top:4px;right:2px;" />
+    <img id="imgLogo" src="images/Logo.png" style="position:absolute;right:2vw;" />
     <table id="TopMenu" class="content">
         <tr>
-            <td style="width:350px;">
-                <h1>Configurator</h1><small> Foster's Non-functioning demo version</small>
+            <td id="config">
+                <h1>Configurator</h1><small> Foster's demo version</small>
             </td>
 
             <td style="vertical-align:middle;">
-                <button Class="k-button" onclick="window.location.href = 'mainmenu.html';">Main Menu</button>
+                <button Class="k-button mainmenubutton" onclick="window.location.href = 'mainmenu.html';">Main Menu</button>
             </td>
         </tr>
     </table>
@@ -518,9 +568,10 @@
                     </div>
                 </li>
             </ul>
-            <button class="k-button k-primary" style="width:99%">Complete Quote</button>
+            <button class="k-button k-primary" style="width:99%; margin: 5px 0px;">Complete Quote</button>
         </div>
         <div class="confPanel">
+            <!-- <span>BOM</span> -->
             <div id="grdBOM" style="width:99%;"></div>
         </div>
     </div>

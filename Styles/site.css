@@ -107,7 +107,7 @@ textarea{
     padding-top:2px;
     padding-left:4px;
     padding-right:4px;
-    display:inline-block;
+    /* display:inline-block; */
     cursor:pointer;
     vertical-align:top;
     border-style:solid;
@@ -169,3 +169,4 @@ textarea{
     padding-right:4px;
 }
 .infobox{} 
+
