@@ -9,26 +9,27 @@
     <title>Welcome</title>
     
     <!-- mike's version...  -->
-    <!-- <script src="Scripts/jquery.min.js"></script> -->
     <!--<script src="Scripts/common.js"></script>--> <!-- commented out on demo version -->
-    <!-- <script src="Scripts/kendo.all.min.js"></script> -->
     <!-- <link href="styles/kendo.common.min.css" rel="stylesheet" /> -->
     <!-- <link href="styles/kendo.common-bootstrap.min.css" rel="stylesheet" />
         <link href="styles/kendo.bootstrap.min.css" rel="stylesheet" /> -->
         
         
-    <!-- my version -- according to documentation -->
-    <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
-    <script src="Scripts/XLate.js"></script> <!-- originally above on line 13 -->
-    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
-    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.default.min.css" rel="stylesheet" />
-    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/VERSION/styles/kendo.common-bootstrap.min.css">
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/VERSION/styles/kendo.bootstrap.min.css">
-    
-    
-    <link href="Styles/site.css" rel="stylesheet" type="text/css" />
-
+        <!-- my version -- according to documentation -->
+        <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+        <script src="Scripts/XLate.js"></script> <!-- originally above on line 13 -->
+        <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
+        <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.default.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="styles/kendo.default.mobile.min.css" />
+        <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/VERSION/styles/kendo.common-bootstrap.min.css">
+        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/VERSION/styles/kendo.bootstrap.min.css">
+        
+        
+        <link href="Styles/site.css" rel="stylesheet" type="text/css" />
+        
+        <script src="js/jquery.min.js"></script>
+        <script src="js/kendo.all.min.js"></script>
 
 
     <script>
@@ -294,6 +295,11 @@
             })
             $("#grdBOM").data("kendoGrid").setDataSource(dsC);
         }
+
+
+
+
+
     </script>
     <style>
         body{
@@ -324,7 +330,12 @@
         /* width: 350px; */
         width: 42vw;
         /* background-color: blue; */
-    }
+        }
+
+        .demo-section {
+            text-align: center;
+            line-height: 4em;
+        }
 
         @media (min-width: 1204px) {
             .confPanel {
@@ -368,9 +379,9 @@
             font-size: 3vw;
             }
             #imgLogo {
-            width: 30vw;
+            width: 35vw;
             padding: 0px;
-            margin: 0px;
+            vertical-align: middle;
             }
             .mainmenubutton {
             font-size: 3.5vw;
@@ -379,11 +390,17 @@
     </style>
 </head>
 <body class="k-content">
-    <img id="imgLogo" src="images/Logo.png" style="position:absolute;right:2vw;" />
+    
+    
+    <span id="popupNotification"></span>
+
+
+    <img id="imgLogo" src="images/Logo.png" style="position:absolute;top: 2.5px; right:1.5vw;" />
     <table id="TopMenu" class="content">
         <tr>
             <td id="config">
-                <h1>Configurator</h1><small> Foster's demo version</small>
+                <h1>Configurator</h1>
+                <small> Foster's demo version</small>
             </td>
 
             <td style="vertical-align:middle;">
@@ -436,7 +453,12 @@
                         </div>
                         <div class="divCell">
                             <label>&nbsp;</label><br />
-                            <button id="butDucAdd" class="k-button k-primary" style="width:35px;height:30px;" onclick="addDuct();">Add</button>
+                            <button id="butDucAdd" 
+                                    class="k-button k-primary" 
+                                    style="width:35px;height:30px;" 
+                                    onclick="addDuct();">Add
+                            </button>
+                            <div data-role="notification" id="ntf1"></div>
                         </div>
                     </div>
                 </li>
@@ -574,6 +596,7 @@
             <!-- <span>BOM</span> -->
             <div id="grdBOM" style="width:99%;"></div>
         </div>
+        <br>
     </div>
     
 </body>

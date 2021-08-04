@@ -4,6 +4,7 @@ body {
     font-size:10pt;
     background-color:white;
     color:#9C9898;
+    min-width: 295px;
 }
     
 td {
@@ -107,7 +108,7 @@ textarea{
     padding-top:2px;
     padding-left:4px;
     padding-right:4px;
-    /* display:inline-block; */
+    display:inline-block;
     cursor:pointer;
     vertical-align:top;
     border-style:solid;
