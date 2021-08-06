@@ -270,7 +270,7 @@
             var p = { Quantity: Qty, ItemNo: "D" + $("#cmbDucDia").data("kendoDropDownList").value(), Description: "Duct " + $("#cmbDucDia").data("kendoDropDownList").value() , Weigth: 0 , ShowRate: 5, ShowAmount: 5*Qty  }
             colParts.push(p);
             setData();
-            popupNotification(Qty, "Duct", p);
+            popupNotification(p);
         }
 
         function addElbow() {
@@ -278,7 +278,7 @@
             var p = { Quantity: Qty, ItemNo: "E" + $("#cmbElbDia").data("kendoDropDownList").value(), Description: "Elbow " + $("#cmbElbDia").data("kendoDropDownList").value(), Weigth: 0, ShowRate: 50, ShowAmount: 50 * Qty }
             colParts.push(p);
             setData();
-            popupNotification(Qty, "Elbow");
+            popupNotification(p);
 
         }
 
@@ -287,18 +287,19 @@
             var p = { Quantity: Qty, ItemNo: "B" + $("#cmbDiaA").data("kendoDropDownList").value(), Description: "Branch " + $("#cmbDucDia").data("kendoDropDownList").value(), Weigth: 0, ShowRate: 100, ShowAmount: 100 * Qty }
             colParts.push(p);
             setData();
-            popupNotification(Qty, "Branch");
+            popupNotification(p);
 
         }
 
-        function popupNotification(num, partDesc, p) {
+        function popupNotification(p) {
+
             var notification = $("#notification").kendoNotification({
                     position: {
                         pinned: true,
-                        top: 30,
+                        // top: 30,
                         right: 30
                     },
-                    autoHideAfter: 4000,
+                    autoHideAfter: 3000,
                     stacking: "down",
                     templates: [{
                         type: "success",
@@ -307,10 +308,15 @@
     
                 }).data("kendoNotification");
     
-                notification.show({
-                        message: `${num}x ${partDesc} added to BOM [${p.ItemNo}: $${p.ShowAmount}]`
-                    }, "success");
-            
+            var qty = p.Quantity;
+            var itemNo = p.ItemNo;
+            var description = p.Description;
+            var cost = p.ShowAmount;
+            var msg = `Added to BOM:  ${qty}x  ${description} (${itemNo}) - $${cost}.00`;
+
+            notification.show({
+                    message: msg
+                }, "success");
         }
 
         function setData() {
@@ -356,10 +362,22 @@
         /* background-color: blue; */
         }
 
-        .demo-section {
-            text-align: center;
-            line-height: 4em;
+
+        /* Notifications */
+        .k-notification h3 {
+            padding: 10px 10px 5px;
+            font-size: 1em;
+            line-height: normal;
         }
+
+        /* Success template */
+        .upload-success {
+            /* display: flex;
+            align-content: center;
+            vertical-align: middle; */
+            width: auto;
+            height: auto;
+        }        
 
         @media (min-width: 1204px) {
             .confPanel {
@@ -417,7 +435,6 @@
 
 <body class="k-content">
 
-    
 
     <img id="imgLogo" src="images/Logo.png" style="position:absolute;top: 2.5px; right:1.5vw;" />
     <table id="TopMenu" class="content">
@@ -432,6 +449,13 @@
             </td>
         </tr>
     </table>
+
+    <span id="notification" style="display:none;"></span>    
+    <script id="successTemplate" type="text/x-kendo-template">
+        <div class="upload-success">                
+            <h3><i class="far fa-check-circle"></i> #= message #</h3>
+        </div>
+    </script>
 
     <div id="divConf"> 
         <div class="confPanel">
@@ -626,115 +650,12 @@
     
     <div id="example">
 
-        <span id="notification" style="display:none;"></span>
-    
-        <div class="demo-section k-content" style="text-align: center;">
-    
-            <h4>Show notification:</h4>
-            <p>
-                <button id="showSuccessNotification" class="k-button">Upload Success</button>
-            </p>
-            <h4>Hide notification:</h4>
-            <p>
-                <button id="hideAllNotifications" class="k-button">Hide All Notifications</button>
-            </p>
-    
-        </div>
-    
-        <script id="successTemplate" type="text/x-kendo-template">
-            <div class="upload-success">
-                <!-- <img src="../content/web/notification/success-icon.png" /> -->
-                <i class="far fa-check-circle"></i>
-                <h3>#= message #</h3>
-            </div>
-        </script>
-    
-        <script>
-            $(document).ready(function() {
-    
-                var notification = $("#notification").kendoNotification({
-                    position: {
-                        pinned: true,
-                        top: 30,
-                        right: 30
-                    },
-                    autoHideAfter: 5000,
-                    stacking: "down",
-                    templates: [{
-                    //     type: "info",
-                    //     template: $("#emailTemplate").html()
-                    // }, {
-                    //     type: "error",
-                    //     template: $("#errorTemplate").html()
-                    // }, {
-                        type: "success",
-                        template: $("#successTemplate").html()
-                    }]
-    
-                }).data("kendoNotification");
-    
-    
-                $("#showSuccessNotification").click(function(){
-                    notification.show({
-                        message: "Upload Successful"
-                    }, "success");
-                });
-    
-                $("#hideAllNotifications").click(function(){
-                    notification.hide();
-                });
-    
-                $(document).one("kendo:pageUnload", function(){ if (notification) { notification.hide(); } });
-    
-            });
-        </script>
+
+
     
         <style>
     
-            /* Notifications */
-            .k-notification h3 {
-                padding: 30px 10px 5px;
-                font-size: 1em;
-                line-height: normal;
-            }
 
-
-            /* Success template */
-            .upload-success {
-                display: flex;
-                width: 300px;
-                height: 50px;
-            }
-    
-    
-            /* For Bootstrap v4 theme */
-            .k-bootstrap-v4 .k-notification h3 {
-                padding: 10px 10px 5px;
-            }
-            .k-bootstrap-v4 .k-notification img {
-                margin: 10px 20px 0 0;
-            }
-            .k-bootstrap-v4 .new-mail,
-            .k-bootstrap-v4 .wrong-pass,
-            .k-bootstrap-v4 .upload-success {
-                width: calc( 300px - 2.5rem );
-                height: calc( 100px - 1.5rem );
-            }
-    
-    
-            /* For Material v2 theme */
-            .k-material-v2 .k-notification h3 {
-                padding: 10px 10px 5px;
-            }
-            .k-material-v2 .k-notification img {
-                margin: 10px 20px 0 0;
-            }
-            .k-material-v2 .new-mail,
-            .k-material-v2 .wrong-pass,
-            .k-material-v2 .upload-success {
-                width: 270px;
-                height: 70px;
-            }
         </style>
     </div>
     
