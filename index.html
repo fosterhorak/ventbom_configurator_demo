@@ -17,19 +17,19 @@
         
         <!-- my version -- according to documentation -->
         <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
-        <script src="Scripts/XLate.js"></script> <!-- originally above on line 13 -->
-        <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" rel="stylesheet" />
-        <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.default.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="styles/kendo.default.mobile.min.css" />
         <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
-        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/VERSION/styles/kendo.common-bootstrap.min.css">
-        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/VERSION/styles/kendo.bootstrap.min.css">
+        <script src="js/jquery.min.js"></script>
+        <script src="Scripts/XLate.js"></script> <!-- originally above on line 13 -->
+        <script src="https://kit.fontawesome.com/7cf4e3ab79.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" />
+        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.default.min.css" />
+        <link rel="stylesheet" href="styles/kendo.default.mobile.min.css" />
+        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/VERSION/styles/kendo.common-bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/VERSION/styles/kendo.bootstrap.min.css"/>
         
         
         <link href="Styles/site.css" rel="stylesheet" type="text/css" />
         
-        <script src="js/jquery.min.js"></script>
-        <script src="js/kendo.all.min.js"></script>
 
 
     <script>
@@ -270,6 +270,7 @@
             var p = { Quantity: Qty, ItemNo: "D" + $("#cmbDucDia").data("kendoDropDownList").value(), Description: "Duct " + $("#cmbDucDia").data("kendoDropDownList").value() , Weigth: 0 , ShowRate: 5, ShowAmount: 5*Qty  }
             colParts.push(p);
             setData();
+            popupNotification(Qty, "Duct", p);
         }
 
         function addElbow() {
@@ -277,6 +278,8 @@
             var p = { Quantity: Qty, ItemNo: "E" + $("#cmbElbDia").data("kendoDropDownList").value(), Description: "Elbow " + $("#cmbElbDia").data("kendoDropDownList").value(), Weigth: 0, ShowRate: 50, ShowAmount: 50 * Qty }
             colParts.push(p);
             setData();
+            popupNotification(Qty, "Elbow");
+
         }
 
         function addBranch() {
@@ -284,6 +287,30 @@
             var p = { Quantity: Qty, ItemNo: "B" + $("#cmbDiaA").data("kendoDropDownList").value(), Description: "Branch " + $("#cmbDucDia").data("kendoDropDownList").value(), Weigth: 0, ShowRate: 100, ShowAmount: 100 * Qty }
             colParts.push(p);
             setData();
+            popupNotification(Qty, "Branch");
+
+        }
+
+        function popupNotification(num, partDesc, p) {
+            var notification = $("#notification").kendoNotification({
+                    position: {
+                        pinned: true,
+                        top: 30,
+                        right: 30
+                    },
+                    autoHideAfter: 4000,
+                    stacking: "down",
+                    templates: [{
+                        type: "success",
+                        template: $("#successTemplate").html()
+                    }]
+    
+                }).data("kendoNotification");
+    
+                notification.show({
+                        message: `${num}x ${partDesc} added to BOM [${p.ItemNo}: $${p.ShowAmount}]`
+                    }, "success");
+            
         }
 
         function setData() {
@@ -295,12 +322,9 @@
             })
             $("#grdBOM").data("kendoGrid").setDataSource(dsC);
         }
-
-
-
-
-
     </script>
+
+    
     <style>
         body{
             font-size:10pt;
@@ -389,11 +413,11 @@
         }
     </style>
 </head>
-<body class="k-content">
-    
-    
-    <span id="popupNotification"></span>
 
+
+<body class="k-content">
+
+    
 
     <img id="imgLogo" src="images/Logo.png" style="position:absolute;top: 2.5px; right:1.5vw;" />
     <table id="TopMenu" class="content">
@@ -408,6 +432,7 @@
             </td>
         </tr>
     </table>
+
     <div id="divConf"> 
         <div class="confPanel">
             <ul id="panConfigurator" style="width:99%;">
@@ -453,12 +478,11 @@
                         </div>
                         <div class="divCell">
                             <label>&nbsp;</label><br />
-                            <button id="butDucAdd" 
+                            <button id="butDucAdd showSuccessNotification" 
                                     class="k-button k-primary" 
                                     style="width:35px;height:30px;" 
                                     onclick="addDuct();">Add
                             </button>
-                            <div data-role="notification" id="ntf1"></div>
                         </div>
                     </div>
                 </li>
@@ -592,6 +616,7 @@
             </ul>
             <button class="k-button k-primary" style="width:99%; margin: 5px 0px;">Complete Quote</button>
         </div>
+
         <div class="confPanel">
             <!-- <span>BOM</span> -->
             <div id="grdBOM" style="width:99%;"></div>
@@ -599,5 +624,123 @@
         <br>
     </div>
     
+    <div id="example">
+
+        <span id="notification" style="display:none;"></span>
+    
+        <div class="demo-section k-content" style="text-align: center;">
+    
+            <h4>Show notification:</h4>
+            <p>
+                <button id="showSuccessNotification" class="k-button">Upload Success</button>
+            </p>
+            <h4>Hide notification:</h4>
+            <p>
+                <button id="hideAllNotifications" class="k-button">Hide All Notifications</button>
+            </p>
+    
+        </div>
+    
+        <script id="successTemplate" type="text/x-kendo-template">
+            <div class="upload-success">
+                <!-- <img src="../content/web/notification/success-icon.png" /> -->
+                <i class="far fa-check-circle"></i>
+                <h3>#= message #</h3>
+            </div>
+        </script>
+    
+        <script>
+            $(document).ready(function() {
+    
+                var notification = $("#notification").kendoNotification({
+                    position: {
+                        pinned: true,
+                        top: 30,
+                        right: 30
+                    },
+                    autoHideAfter: 5000,
+                    stacking: "down",
+                    templates: [{
+                    //     type: "info",
+                    //     template: $("#emailTemplate").html()
+                    // }, {
+                    //     type: "error",
+                    //     template: $("#errorTemplate").html()
+                    // }, {
+                        type: "success",
+                        template: $("#successTemplate").html()
+                    }]
+    
+                }).data("kendoNotification");
+    
+    
+                $("#showSuccessNotification").click(function(){
+                    notification.show({
+                        message: "Upload Successful"
+                    }, "success");
+                });
+    
+                $("#hideAllNotifications").click(function(){
+                    notification.hide();
+                });
+    
+                $(document).one("kendo:pageUnload", function(){ if (notification) { notification.hide(); } });
+    
+            });
+        </script>
+    
+        <style>
+    
+            /* Notifications */
+            .k-notification h3 {
+                padding: 30px 10px 5px;
+                font-size: 1em;
+                line-height: normal;
+            }
+
+
+            /* Success template */
+            .upload-success {
+                display: flex;
+                width: 300px;
+                height: 50px;
+            }
+    
+    
+            /* For Bootstrap v4 theme */
+            .k-bootstrap-v4 .k-notification h3 {
+                padding: 10px 10px 5px;
+            }
+            .k-bootstrap-v4 .k-notification img {
+                margin: 10px 20px 0 0;
+            }
+            .k-bootstrap-v4 .new-mail,
+            .k-bootstrap-v4 .wrong-pass,
+            .k-bootstrap-v4 .upload-success {
+                width: calc( 300px - 2.5rem );
+                height: calc( 100px - 1.5rem );
+            }
+    
+    
+            /* For Material v2 theme */
+            .k-material-v2 .k-notification h3 {
+                padding: 10px 10px 5px;
+            }
+            .k-material-v2 .k-notification img {
+                margin: 10px 20px 0 0;
+            }
+            .k-material-v2 .new-mail,
+            .k-material-v2 .wrong-pass,
+            .k-material-v2 .upload-success {
+                width: 270px;
+                height: 70px;
+            }
+        </style>
+    </div>
+    
+    
+
+
+
 </body>
 </html>
