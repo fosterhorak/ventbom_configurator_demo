@@ -171,3 +171,51 @@ textarea{
 }
 .infobox{} 
 
+
+/* .k-button {
+    border-radius: 4px;
+    border-color: #ccc;
+    color: #333;
+    background-color: #fff;
+    background-position: 50% 50%;
+    margin: 0;
+    padding: 6px 12px;
+    box-sizing: border-box;
+    border-width: 1px;
+    border-style: solid;
+    background-repeat: repeat-x;
+    font: inherit;
+    line-height: 1.42857143;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    user-select: none;
+    cursor: pointer;
+    outline: 0;
+    -webkit-appearance: none;
+    position: relative;
+} */
+
+/* .k-primary {
+    color: #fff;
+    border-color: #357ebd;
+    background-color: #428bca;
+    margin-bottom: 2px;
+}
+
+.k-draghandle.k-state-selected:hover, .k-ghost-splitbar-horizontal, .k-ghost-splitbar-vertical, .k-list>.k-state-highlight, .k-list>.k-state-selected, .k-marquee-color, .k-panel>.k-state-selected, .k-scheduler .k-scheduler-toolbar .k-state-selected, .k-scheduler .k-today.k-state-selected, .k-state-selected, .k-state-selected:link, .k-state-selected:visited, .k-tool.k-state-selected{
+    color: #fff;
+    background-color: #c5c5c5;
+    border-color: #c5c5c5;
+    box-shadow: none;
+    ;
+}
+
+.k-link, .k-nav-current.k-state-hover .k-link, .k-state-selected{
+    color: #428bca;
+} */
+
