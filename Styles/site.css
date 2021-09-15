@@ -277,7 +277,7 @@ width: 42vw;
 
 
 .div1 {
-    background-color: pink;
+    /* background-color: pink; */
     width: 90%;
     display: flex;
     justify-content: left;
@@ -292,9 +292,9 @@ width: 42vw;
     justify-content: center;
     justify-self: flex-end;
     align-items: center;
-    padding: 4px;
+    padding: 2px;
     margin: 2px;
-    background-color: peachpuff;
+    /* background-color: peachpuff; */
     width: 10%;
     min-width: 45px;
 }

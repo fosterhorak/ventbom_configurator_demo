@@ -85,8 +85,9 @@
                 <!-- duct -->
                 <li id="panPipe" class="k-state-active">
                     <span>Duct</span>
-                    <!-- <div style="margin:5px;display:inline-table"> -->
+                    <div style="margin:5px;display:inline-table">
                     <div  class="selectionContainer" style="display:flex !important">
+
                         <div class="div1 divCell">
                             <div class="divCell">
                                 <label>Diameter</label><br />
@@ -105,6 +106,7 @@
                                 <input id="numDucQty" class="k-textbox" type="number" onfocus="this.select()" style="width:50px;" value="1" min="1"/>
                             </div>
                         </div>
+
                         <div class="div2 divCell">
                             <div style="display:inline-table">
                                 <div class="divCell">
@@ -117,13 +119,15 @@
                             </div>
                         </div>
                     </div>
+                    </div>
                 </li>
                 
                 <!-- elbows -->
                 <li id="panElbow" class="k-state-active">
                     <span>Elbows</span>
-                    <!-- <div style="margin:5px;display:inline-table"> -->
+                    <div style="margin:5px;display:inline-table">
                     <div  class="selectionContainer" style="display:flex !important">
+                        
                         <div class="div1 divCell">
                             <div class="divCell">
                                 <label>Diameter</label><br />
@@ -154,6 +158,7 @@
                                 <input id="numElbQty" class="k-textbox" type="number" onfocus="this.select()" style="width:50px;" value="1" min="1"/>
                             </div>
                         </div>
+                        
                         <div class="div2 divCell">
                             <div style="display:inline-table">
                                 <div class="divCell">
@@ -162,71 +167,74 @@
                             </div>
                         </div>
                     </div>
+                    </div>
                 </li>
                 
                 
                 <!-- branches -->
                 <li id="panBranch" class="k-state-active">
                     <span>Branches</span>
-                    <!-- <div style="margin:5px;display:inline-table"> -->
-                    <div  class="selectionContainer" style="display:flex !important">
-                        <div class="div1 divCell">
+                    <div style="margin:5px;display:inline-table">
+                        <div  class="selectionContainer" style="display:flex !important">
+                            <div class="div1 divCell">
 
-                            <div class="divCell">
-                                <label>Type</label><br />
-                                <input id="cmbBraType" style="width:130px;" />
-                            </div>
-                            <div class="divCell">
-                                <label>Dia A</label><br />
-                                <input id="cmbDiaA" style="width:60px;" />
-                            </div>
-                            <div id="divBraEndA" class="divCell">
-                                <label>End A</label><br />
-                                <input id="cmbEndA" style="width:80px;" />
-                            </div>
-                            <div class="divCell">
-                                <label>Dia B</label><br />
-                                <input id="cmbDiaB" style="width:60px;" />
-                            </div>
-                            <div class="divCell">
-                                <label>End B</label><br />
-                                <input id="cmbEndB" style="width:80px;" />
-                            </div>
-                            <div id="divBraDiaC" class="divCell">
-                                <label>Dia C</label><br />
-                                <input id="cmbDiaC" style="width:60px;" />
-                            </div>
-                            <div id="divBraEndC" class="divCell">
-                                <label>End C</label><br />
-                                <input id="cmbEndC" style="width:80px;" />
-                            </div>
-                            <div id="divBraDiaD" style="display:none;" class="divCell">
-                                <label>Dia D</label><br />
-                                <input id="cmbDiaD" style="width:60px;" />
-                            </div>
-                            <div id="divBraEndD" style="display:none;" class="divCell">
-                                <label>End D</label><br />
-                                <input id="cmbEndD" style="width:80px;" />
-                            </div>
-                            <div class="divCell">
-                                <label>Angle</label><br />
-                                <input id="cmbAngle" style="width:60px;" />
-                            </div>
-                            <div class="divCell">
-                                <label>Qty</label><br />
-                                <input id="numBraQty" class="k-textbox" type="number" onfocus="this.select()" style="width:50px;" value="1" min="1"/>
-                            </div>
-                        </div>
-                        
-                        <div class="div2 divCell">
-                            <div style="display:inline-table">
                                 <div class="divCell">
-                                    <button id="butBraAdd" class="k-button k-primary" style="width:35px;height:30px;" onclick="addBranch();">Add</button>
+                                    <label>Type</label><br />
+                                    <input id="cmbBraType" style="width:130px;" />
+                                </div>
+                                <div class="divCell">
+                                    <label>Dia A</label><br />
+                                    <input id="cmbDiaA" style="width:60px;" />
+                                </div>
+                                <div id="divBraEndA" class="divCell">
+                                    <label>End A</label><br />
+                                    <input id="cmbEndA" style="width:80px;" />
+                                </div>
+                                <div class="divCell">
+                                    <label>Dia B</label><br />
+                                    <input id="cmbDiaB" style="width:60px;" />
+                                </div>
+                                <div class="divCell">
+                                    <label>End B</label><br />
+                                    <input id="cmbEndB" style="width:80px;" />
+                                </div>
+                                <div id="divBraDiaC" class="divCell">
+                                    <label>Dia C</label><br />
+                                    <input id="cmbDiaC" style="width:60px;" />
+                                </div>
+                                <div id="divBraEndC" class="divCell">
+                                    <label>End C</label><br />
+                                    <input id="cmbEndC" style="width:80px;" />
+                                </div>
+                                <div id="divBraDiaD" style="display:none;" class="divCell">
+                                    <label>Dia D</label><br />
+                                    <input id="cmbDiaD" style="width:60px;" />
+                                </div>
+                                <div id="divBraEndD" style="display:none;" class="divCell">
+                                    <label>End D</label><br />
+                                    <input id="cmbEndD" style="width:80px;" />
+                                </div>
+                                <div class="divCell">
+                                    <label>Angle</label><br />
+                                    <input id="cmbAngle" style="width:60px;" />
+                                </div>
+                                <div class="divCell">
+                                    <label>Qty</label><br />
+                                    <input id="numBraQty" class="k-textbox" type="number" onfocus="this.select()" style="width:50px;" value="1" min="1"/>
                                 </div>
                             </div>
-                        </div>
+                            
+                            <div class="div2 divCell">
+                                <div style="display:inline-table">
+                                    <div class="divCell">
+                                        <button id="butBraAdd" class="k-button k-primary" style="width:35px;height:30px;" onclick="addBranch();">Add</button>
+                                    </div>
+                                </div>
+                            </div>
 
+                        </div>
                     </div>
+
                 </li>
 
                 <!-- flex hose -->
