@@ -230,39 +230,48 @@ $(window).resize(function () {
     $("#grdBOM").data("kendoGrid").resize();
 });
 
-function addDuct() {
+
+function addDuct(btnPos) {
     var Qty = parseFloat($("#numDucQty").val());
     var p = { Quantity: Qty, ItemNo: "D" + $("#cmbDucDia").data("kendoDropDownList").value(), Description: "Duct " + $("#cmbDucDia").data("kendoDropDownList").value() , Weigth: 0 , ShowRate: 5, ShowAmount: 5*Qty  }
     colParts.push(p);
     setData();
-    popupNotification(p);
+    
+    // det top & right position of 
+    console.log(`btnPos.top: ${btnPos.top}`);
+    console.log(`btnPos.right: ${btnPos.right}`);
+
+    // call popupNotification fnc
+    popupNotification(p, btnPos);
 }
 
-function addElbow() {
+function addElbow(btnPos) {
     var Qty = parseFloat($("#numElbQty").val());
     var p = { Quantity: Qty, ItemNo: "E" + $("#cmbElbDia").data("kendoDropDownList").value(), Description: "Elbow " + $("#cmbElbDia").data("kendoDropDownList").value(), Weigth: 0, ShowRate: 50, ShowAmount: 50 * Qty }
     colParts.push(p);
     setData();
-    popupNotification(p);
 
+    // call popupNotification fnc
+    popupNotification(p, btnPos);
 }
 
-function addBranch() {
+function addBranch(btnPos) {
     var Qty = parseFloat($("#numBraQty").val());
     var p = { Quantity: Qty, ItemNo: "B" + $("#cmbDiaA").data("kendoDropDownList").value(), Description: "Branch " + $("#cmbDucDia").data("kendoDropDownList").value(), Weigth: 0, ShowRate: 100, ShowAmount: 100 * Qty }
     colParts.push(p);
     setData();
-    popupNotification(p);
 
+    // call popupNotification fnc
+    popupNotification(p, btnPos);
 }
 
-function popupNotification(p) {
-
+function popupNotification(p, btnPos) {
+    
     var notification = $("#notification").kendoNotification({
             position: {
-                pinned: true,
-                // top: 30,
-                right: 30
+                pinned: false,
+                top: btnPos.top,
+                right: btnPos.right
             },
             autoHideAfter: 3000,
             stacking: "down",

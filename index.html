@@ -6,7 +6,7 @@
     <meta http-equiv="Pragma" content="no-store, no-cache" />
     <meta http-equiv="Expires" content="0" />
 
-    <title>Welcome My Dude!</title>
+    <title>Welcome</title>
 
     <!-- mike's version...  -->
     <!--<script src="Scripts/common.js"></script>--> <!-- commented out on demo version -->
@@ -53,6 +53,19 @@
             <h3><i class="far fa-check-circle"></i> #= message #</h3>
         </div>
     </script>
+
+
+    <!--  NEW  script to set position of notification popup  -->
+    <script>
+        function getOffset(el) {
+            // get left, right, top, bottom location of current element (button clicked)
+            const rect = el.getBoundingClientRect();
+            // top of notification is translated 10px down and aligns with right side
+            return {right: document.body.clientWidth - rect.left - 17, top: rect.bottom + 10}
+        }
+    </script>
+    <!--  END NEW  script to set position of notification popup  -->
+
 
     <!-- config panel -->
     <div id="divConf"> 
@@ -113,7 +126,7 @@
                                     <button id="butDucAdd showSuccessNotification" 
                                             class="k-button k-primary" 
                                             style="width:35px;height:30px;" 
-                                            onclick="addDuct();">Add
+                                            onclick="addDuct(getOffset(this));">Add
                                     </button>
                                 </div>
                             </div>
@@ -162,7 +175,7 @@
                         <div class="div2 divCell">
                             <div style="display:inline-table">
                                 <div class="divCell">
-                                    <button id="butElbAdd" class="k-button k-primary" style="width:35px;height:30px;" onclick="addElbow();">Add</button>
+                                    <button id="butElbAdd" class="k-button k-primary" style="width:35px;height:30px;" onclick="addElbow( getOffset(this) );">Add</button>
                                 </div>
                             </div>
                         </div>
@@ -227,7 +240,7 @@
                             <div class="div2 divCell">
                                 <div style="display:inline-table">
                                     <div class="divCell">
-                                        <button id="butBraAdd" class="k-button k-primary" style="width:35px;height:30px;" onclick="addBranch();">Add</button>
+                                        <button id="butBraAdd" class="k-button k-primary" style="width:35px;height:30px;" onclick="addBranch( getOffset(this) );">Add</button>
                                     </div>
                                 </div>
                             </div>
