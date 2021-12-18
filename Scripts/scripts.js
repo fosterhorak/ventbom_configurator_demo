@@ -236,12 +236,8 @@ function addDuct(btnPos) {
     var p = { Quantity: Qty, ItemNo: "D" + $("#cmbDucDia").data("kendoDropDownList").value(), Description: "Duct " + $("#cmbDucDia").data("kendoDropDownList").value() , Weigth: 0 , ShowRate: 5, ShowAmount: 5*Qty  }
     colParts.push(p);
     setData();
-    
-    // det top & right position of 
-    console.log(`btnPos.top: ${btnPos.top}`);
-    console.log(`btnPos.right: ${btnPos.right}`);
 
-    // call popupNotification fnc
+    // NEW - ADDED btnPos
     popupNotification(p, btnPos);
 }
 
@@ -251,7 +247,7 @@ function addElbow(btnPos) {
     colParts.push(p);
     setData();
 
-    // call popupNotification fnc
+    // NEW - ADDED btnPos
     popupNotification(p, btnPos);
 }
 
@@ -261,13 +257,14 @@ function addBranch(btnPos) {
     colParts.push(p);
     setData();
 
-    // call popupNotification fnc
+    // NEW - ADDED btnPos
     popupNotification(p, btnPos);
 }
 
 function popupNotification(p, btnPos) {
     
     var notification = $("#notification").kendoNotification({
+            // NEW - updated position object
             position: {
                 pinned: false,
                 top: btnPos.top,
